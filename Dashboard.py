@@ -27,31 +27,33 @@ def df_to_csv(df):
                                                                 ### Streamlit app ###
 
                                                                 ## Intro ##
-# Create main df
+
 try:
+        # Create main df
         df_main = data_for_dashboard()
+
+        # Title
+        st.title('EchoIT')
+        st.markdown('''###### Welcome to EchoIT dashboard. Main purpose of this app is to have an overview of IT job marketplace in Poland as of now. Commercial reports are cool, however they share one disadvantage - they refer to the past (past year, usually). It's a bit late if you want to know, for example what are the current wages or most desired technologies and skills. An here it is, when EchoIT enters the stage. EchoIT is based on the latest, daily refreshed data provided from one of the most popular IT job marketplace in Poland - [justjoin.it](https://justjoin.it/?tab=with-salary)''')
+        st.markdown('#')
+        st.markdown('''##### Below you can find several plots that show aggregated data in various dimensions for a selected period. Check this out.''')
+
+
+                                                                        ## Global filters ##
+        # Create a filter date range
+        filter_date_range = st.date_input(label = 'Date range: ', 
+                                        value = (df_main['datestamp'].max() - timedelta(days = 30), df_main['datestamp'].max()),
+                                        min_value = df_main['datestamp'].min(),
+                                        max_value = df_main['datestamp'].max(),
+                                        help = 'Default period is 30 days back from the latest available day in dataset. Minimum date value is 27-jul-2022.',
+                                        key = 0)
+
+        st.markdown('#')
+
 except:
         st.info('Server does not respond. Please reload')
-
-# Title
-st.title('EchoIT')
-st.markdown('''###### Welcome to EchoIT dashboard. Main purpose of this app is to have an overview of IT job marketplace in Poland as of now. Commercial reports are cool, however they share one disadvantage - they refer to the past (past year, usually). It's a bit late if you want to know, for example what are the current wages or most desired technologies and skills. An here it is, when EchoIT enters the stage. EchoIT is based on the latest, daily refreshed data provided from one of the most popular IT job marketplace in Poland - [justjoin.it](https://justjoin.it/?tab=with-salary)''')
-st.markdown('#')
-st.markdown('''##### Below you can find several plots that show aggregated data in various dimensions for a selected period. Check this out.''')
-
-
-                                                                ## Global filters ##
-# Create a filter date range
-
-filter_date_range = st.date_input(label = 'Date range: ', 
-                                value = (df_main['datestamp'].max() - timedelta(days = 30), df_main['datestamp'].max()),
-                                min_value = df_main['datestamp'].min(),
-                                max_value = df_main['datestamp'].max(),
-                                help = 'Default period is 30 days back from the latest available day in dataset. Minimum date value is 27-jul-2022.',
-                                key = 0)
-
-st.markdown('#')
-
+        
+        
 if len(filter_date_range) == 2:
 
                                                                         ## Main ## 
