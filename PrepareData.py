@@ -9,7 +9,7 @@ from flatten_json import flatten
 class PrepareData:
     def __init__(self):
         self.host = st.secrets['host']
-        self.port = st.secrets['port']
+        self.port = int(st.secrets['port'])
         self.db_name = st.secrets['db_name']
         self.collection_name = st.secrets['collection_name']
 
