@@ -8,10 +8,10 @@ from flatten_json import flatten
 
 class PrepareData:
     def __init__(self):
-        self.host = st.secrets['host']
-        self.port = st.secrets['port']
-        self.db_name = st.secrets['db_name']
-        self.collection_name = st.secrets['collection_name']
+        self.host = st.secrets.server.host
+        self.port = st.secrets.server.port
+        self.db_name = st.secrets.server.db_name
+        self.collection_name = st.secrets.server.collection_name
 
         self.client = MongoClient(host = self.host, port = self.port)
         self.db = self.client[self.db_name]
