@@ -28,11 +28,11 @@ def df_to_csv(df):
 
                                                                 ## Intro ##
 
-try:
+# try:
         # Create main df
-        df_main = data_for_dashboard()
-except:
-        st.info('Server does not respond. Please reload')
+df_main = data_for_dashboard()
+# except:
+#         st.info('Server does not respond. Please reload')
 
 # Title
 st.title('EchoIT')
