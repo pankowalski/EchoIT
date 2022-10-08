@@ -303,244 +303,244 @@ if len(filter_date_range) == 2:
 
         st.markdown('###')
 
-#         ## Third sector
-#         with st.container():
+        ## Third sector
+        with st.container():
 
-#                 st.markdown('##### Salary distribution')
-#                 st.caption('Chart below shows distribution of salary range per technology area for a given period, seniority level, employment type and salary currency')
+                st.markdown('##### Salary distribution')
+                st.caption('Chart below shows distribution of salary range per technology area for a given period, seniority level, employment type and salary currency')
 
-#                 df_third_sector = df_main[(df_main.is_main_salary_flag == 'Yes') &
-#                                         (df_main.datestamp >= filter_date_range[0]) &
-#                                         (df_main.datestamp <= filter_date_range[1])]
+                df_third_sector = df_main[(df_main.is_main_salary_flag == 'Yes') &
+                                        (df_main.datestamp >= filter_date_range[0]) &
+                                        (df_main.datestamp <= filter_date_range[1])]
 
-#                 ## Sector filters
-#                 # Create seniority level filter
-#                 list_seniority_level = df_third_sector['experience_level'].drop_duplicates().to_list()
-#                 list_seniority_level.sort()
-#                 filter_seniority_level = st.selectbox('Seniority level:', 
-#                                                 list_seniority_level,
-#                                                 index = list_seniority_level.index('mid'),
-#                                                 key = 5)
+                ## Sector filters
+                # Create seniority level filter
+                list_seniority_level = df_third_sector['experience_level'].drop_duplicates().to_list()
+                list_seniority_level.sort()
+                filter_seniority_level = st.selectbox('Seniority level:', 
+                                                list_seniority_level,
+                                                index = list_seniority_level.index('mid'),
+                                                key = 5)
                 
-#                 df_third_sector = df_third_sector[df_third_sector.experience_level == filter_seniority_level]
+                df_third_sector = df_third_sector[df_third_sector.experience_level == filter_seniority_level]
 
-#                 # Create employment type filter
-#                 list_employment_type = df_third_sector['employment_type'].drop_duplicates().to_list()
-#                 list_employment_type = [x for x in list_employment_type if '&' not in x]
-#                 list_employment_type.sort()
-#                 filter_employment_type = st.selectbox('Employment type:', 
-#                                                 list_employment_type,
-#                                                 index = list_employment_type.index('b2b'),
-#                                                 key = 6)
+                # Create employment type filter
+                list_employment_type = df_third_sector['employment_type'].drop_duplicates().to_list()
+                list_employment_type = [x for x in list_employment_type if '&' not in x]
+                list_employment_type.sort()
+                filter_employment_type = st.selectbox('Employment type:', 
+                                                list_employment_type,
+                                                index = list_employment_type.index('b2b'),
+                                                key = 6)
                 
-#                 df_third_sector = df_third_sector[df_third_sector.employment_type == filter_employment_type]
+                df_third_sector = df_third_sector[df_third_sector.employment_type == filter_employment_type]
 
-#                 # Create salary currency filter
-#                 list_salary_currency = df_third_sector['salary_currency'].drop_duplicates().to_list()
-#                 list_salary_currency.sort()
-#                 filter_salary_currency = st.selectbox('Salary currency:', 
-#                                                 list_salary_currency,
-#                                                 index = list_salary_currency.index('pln'),
-#                                                 key = 7)
+                # Create salary currency filter
+                list_salary_currency = df_third_sector['salary_currency'].drop_duplicates().to_list()
+                list_salary_currency.sort()
+                filter_salary_currency = st.selectbox('Salary currency:', 
+                                                list_salary_currency,
+                                                index = list_salary_currency.index('pln'),
+                                                key = 7)
 
-#                 df_third_sector = df_third_sector[df_third_sector.salary_currency == filter_salary_currency]
+                df_third_sector = df_third_sector[df_third_sector.salary_currency == filter_salary_currency]
 
-#                 # Create box plot to visualise salary distribution per technology area
-#                 with st.container():
-#                         plot_salary_group = make_subplots(specs=[[{"secondary_y": True}]])
+                # Create box plot to visualise salary distribution per technology area
+                with st.container():
+                        plot_salary_group = make_subplots(specs=[[{"secondary_y": True}]])
                         
-#                         plot_salary_group_salary_from = px.box(
-#                                                                 df_third_sector,
-#                                                                 x = 'technology_area',
-#                                                                 y = (filter_employment_type + '_salary_from'),
-#                                                                 points = 'outliers',
-#                                                                 template = 'plotly_dark'
-#                                                         )
+                        plot_salary_group_salary_from = px.box(
+                                                                df_third_sector,
+                                                                x = 'technology_area',
+                                                                y = (filter_employment_type + '_salary_from'),
+                                                                points = 'outliers',
+                                                                template = 'plotly_dark'
+                                                        )
 
-#                         plot_salary_group_salary_from.update_traces(hovertemplate = 'technology area: %{x} <br>bottom salary range: %{y}')
+                        plot_salary_group_salary_from.update_traces(hovertemplate = 'technology area: %{x} <br>bottom salary range: %{y}')
 
-#                         plot_salary_group_salary_to = px.box(
-#                                                                 df_third_sector,
-#                                                                 x = 'technology_area',
-#                                                                 y = (filter_employment_type + '_salary_to'),
-#                                                                 points = 'outliers',
-#                                                                 template = 'ggplot2'
-#                                                         )
+                        plot_salary_group_salary_to = px.box(
+                                                                df_third_sector,
+                                                                x = 'technology_area',
+                                                                y = (filter_employment_type + '_salary_to'),
+                                                                points = 'outliers',
+                                                                template = 'ggplot2'
+                                                        )
 
-#                         plot_salary_group_salary_to.update_traces(yaxis = 'y2',
-#                                                                         hovertemplate = 'technology area: %{x} <br>top salary range: %{y}')
+                        plot_salary_group_salary_to.update_traces(yaxis = 'y2',
+                                                                        hovertemplate = 'technology area: %{x} <br>top salary range: %{y}')
                         
-#                         # plot_salary_group_main_salary_to.update_traces(fillcolor = 'green') Quite useful when you want to setup color for a trace but I prefer setting up different templates for each plot/subplot
+                        # plot_salary_group_main_salary_to.update_traces(fillcolor = 'green') Quite useful when you want to setup color for a trace but I prefer setting up different templates for each plot/subplot
                         
-#                         plot_salary_group.add_traces(plot_salary_group_salary_from.data + 
-#                                                         plot_salary_group_salary_to.data)                                   
-#                         plot_salary_group.update_layout(boxmode = 'group',
-#                                                         height = 700,
-#                                                         template = 'plotly_dark')
-#                         plot_salary_group.layout.yaxis.title = 'bottom salary range'
-#                         plot_salary_group.layout.yaxis2.title = 'top salary range'
-#                         plot_salary_group.update_yaxes(range = [0, df_third_sector[(filter_employment_type + '_salary_to')].max() + 1000])
-#                         plot_salary_group.update_xaxes(categoryorder = 'category ascending')
+                        plot_salary_group.add_traces(plot_salary_group_salary_from.data + 
+                                                        plot_salary_group_salary_to.data)                                   
+                        plot_salary_group.update_layout(boxmode = 'group',
+                                                        height = 700,
+                                                        template = 'plotly_dark')
+                        plot_salary_group.layout.yaxis.title = 'bottom salary range'
+                        plot_salary_group.layout.yaxis2.title = 'top salary range'
+                        plot_salary_group.update_yaxes(range = [0, df_third_sector[(filter_employment_type + '_salary_to')].max() + 1000])
+                        plot_salary_group.update_xaxes(categoryorder = 'category ascending')
 
-#                         st.plotly_chart(plot_salary_group, use_container_width = True)
+                        st.plotly_chart(plot_salary_group, use_container_width = True)
 
-#         st.markdown('###')
+        st.markdown('###')
 
-#         ## Fourth sector
-#         with st.container():
+        ## Fourth sector
+        with st.container():
 
-#                 ## Sector filters
-#                 # Create technology area filter
-#                 list_technology_area = df_main['technology_area'].drop_duplicates().to_list()
-#                 list_technology_area.sort()
-#                 list_technology_area = ['all'] + list_technology_area
-#                 filter_technology_area = st.selectbox('Technology area:', 
-#                                                 list_technology_area,
-#                                                 index = list_technology_area.index('all'),
-#                                                 key = 8)
+                ## Sector filters
+                # Create technology area filter
+                list_technology_area = df_main['technology_area'].drop_duplicates().to_list()
+                list_technology_area.sort()
+                list_technology_area = ['all'] + list_technology_area
+                filter_technology_area = st.selectbox('Technology area:', 
+                                                list_technology_area,
+                                                index = list_technology_area.index('all'),
+                                                key = 8)
 
-#                 # Create seniority level filter
-#                 list_seniority_level = df_main['experience_level'].drop_duplicates().to_list()
-#                 list_seniority_level.sort()
-#                 list_seniority_level = ['all'] + list_seniority_level
-#                 filter_seniority_level = st.selectbox('Seniority level:', 
-#                                                 list_seniority_level,
-#                                                 index = list_seniority_level.index('all'),
-#                                                 key = 9)
+                # Create seniority level filter
+                list_seniority_level = df_main['experience_level'].drop_duplicates().to_list()
+                list_seniority_level.sort()
+                list_seniority_level = ['all'] + list_seniority_level
+                filter_seniority_level = st.selectbox('Seniority level:', 
+                                                list_seniority_level,
+                                                index = list_seniority_level.index('all'),
+                                                key = 9)
 
-#                 # Create filtered df
-#                 if filter_technology_area == 'all' and filter_seniority_level == 'all':
-#                         df_fourth_sector = df_main[(df_main.datestamp >= filter_date_range[0]) &
-#                                                 (df_main.datestamp <= filter_date_range[1]) 
-#                                                 ].reset_index()
-#                 elif filter_technology_area != 'all' and filter_seniority_level != 'all':
-#                         df_fourth_sector = df_main[(df_main.datestamp >= filter_date_range[0]) &
-#                                                 (df_main.datestamp <= filter_date_range[1]) &
-#                                                 (df_main.technology_area == filter_technology_area) &
-#                                                 (df_main.experience_level == filter_seniority_level)
-#                                                 ].reset_index()
-#                 elif filter_technology_area == 'all' and filter_seniority_level != 'all':
-#                         df_fourth_sector = df_main[(df_main.datestamp >= filter_date_range[0]) &
-#                                                 (df_main.datestamp <= filter_date_range[1]) &
-#                                                 (df_main.experience_level == filter_seniority_level)
-#                                                 ].reset_index()
-#                 elif filter_technology_area != 'all' and filter_seniority_level == 'all':
-#                         df_fourth_sector = df_main[(df_main.datestamp >= filter_date_range[0]) &
-#                                                 (df_main.datestamp <= filter_date_range[1]) &
-#                                                 (df_main.technology_area == filter_technology_area)
-#                                                 ].reset_index()
+                # Create filtered df
+                if filter_technology_area == 'all' and filter_seniority_level == 'all':
+                        df_fourth_sector = df_main[(df_main.datestamp >= filter_date_range[0]) &
+                                                (df_main.datestamp <= filter_date_range[1]) 
+                                                ].reset_index()
+                elif filter_technology_area != 'all' and filter_seniority_level != 'all':
+                        df_fourth_sector = df_main[(df_main.datestamp >= filter_date_range[0]) &
+                                                (df_main.datestamp <= filter_date_range[1]) &
+                                                (df_main.technology_area == filter_technology_area) &
+                                                (df_main.experience_level == filter_seniority_level)
+                                                ].reset_index()
+                elif filter_technology_area == 'all' and filter_seniority_level != 'all':
+                        df_fourth_sector = df_main[(df_main.datestamp >= filter_date_range[0]) &
+                                                (df_main.datestamp <= filter_date_range[1]) &
+                                                (df_main.experience_level == filter_seniority_level)
+                                                ].reset_index()
+                elif filter_technology_area != 'all' and filter_seniority_level == 'all':
+                        df_fourth_sector = df_main[(df_main.datestamp >= filter_date_range[0]) &
+                                                (df_main.datestamp <= filter_date_range[1]) &
+                                                (df_main.technology_area == filter_technology_area)
+                                                ].reset_index()
 
-#                 st.markdown('###')
+                st.markdown('###')
 
-#                 col1, col2 = st.columns(2)
+                col1, col2 = st.columns(2)
                 
-#                 with col1:
-#                         ## Create a wordcloud for most frequent skills
-#                         with st.container():
+                with col1:
+                        ## Create a wordcloud for most frequent skills
+                        with st.container():
 
-#                                 st.markdown('##### Top technologies')
-#                                 st.caption('Wordcloud below shows 20 most frequent technologies for a given period, technology area(s) and seniority level(s)')
+                                st.markdown('##### Top technologies')
+                                st.caption('Wordcloud below shows 20 most frequent technologies for a given period, technology area(s) and seniority level(s)')
 
-#                                 # List all skills
-#                                 list_skills = df_fourth_sector.skills_0_name.tolist() + df_fourth_sector.skills_1_name.tolist() + df_fourth_sector.skills_2_name.tolist()
+                                # List all skills
+                                list_skills = df_fourth_sector.skills_0_name.tolist() + df_fourth_sector.skills_1_name.tolist() + df_fourth_sector.skills_2_name.tolist()
 
-#                                 # Create a dictionary with a frequency per skill counted
-#                                 dictionary_skills = {}
-#                                 for element in list_skills:
-#                                         if pd.isna(element) == True:
-#                                                 continue
+                                # Create a dictionary with a frequency per skill counted
+                                dictionary_skills = {}
+                                for element in list_skills:
+                                        if pd.isna(element) == True:
+                                                continue
                                         
-#                                         elif element in dictionary_skills:
-#                                                 dictionary_skills[element] += 1
+                                        elif element in dictionary_skills:
+                                                dictionary_skills[element] += 1
                                         
-#                                         else:
-#                                                 dictionary_skills.update({element: 1})
+                                        else:
+                                                dictionary_skills.update({element: 1})
                                 
-#                                 # Sort values
-#                                 dictionary_skills_sorted = dict(sorted(dictionary_skills.items(), key=lambda item: item[1], reverse = True))
-#                                 # list_skills_sorted = sorted(dictionary_skills, key = dictionary_skills.get, reverse = True)
+                                # Sort values
+                                dictionary_skills_sorted = dict(sorted(dictionary_skills.items(), key=lambda item: item[1], reverse = True))
+                                # list_skills_sorted = sorted(dictionary_skills, key = dictionary_skills.get, reverse = True)
 
-#                                 # Create wordcloud object
-#                                 wordcloud = WordCloud(width = 1600, height = 800,
-#                                                 background_color ='black',
-#                                                 colormap = 'Blues',
-#                                                 max_words = 20,
-#                                                 min_font_size = 10).generate_from_frequencies(dictionary_skills_sorted)
+                                # Create wordcloud object
+                                wordcloud = WordCloud(width = 1600, height = 800,
+                                                background_color ='black',
+                                                colormap = 'Blues',
+                                                max_words = 20,
+                                                min_font_size = 10).generate_from_frequencies(dictionary_skills_sorted)
                                 
-#                                 # Plot the WordCloud image                      
-#                                 fig, ax = plt.subplots(figsize = (20, 10), facecolor = 'k')
-#                                 ax.imshow(wordcloud)
-#                                 plt.axis("off")
-#                                 plt.tight_layout(pad = 0)
-#                                 st.pyplot(fig)
+                                # Plot the WordCloud image                      
+                                fig, ax = plt.subplots(figsize = (20, 10), facecolor = 'k')
+                                ax.imshow(wordcloud)
+                                plt.axis("off")
+                                plt.tight_layout(pad = 0)
+                                st.pyplot(fig)
                                 
-#                 with col2:
-#                         ## Create a wordcloud for most frequent job titles
-#                         with st.container():
+                with col2:
+                        ## Create a wordcloud for most frequent job titles
+                        with st.container():
 
-#                                 st.markdown('##### Top job titles')
-#                                 st.caption('Wordcloud below shows 20 most frequent job titles for a given period, technology area(s) and seniority level(s)')
+                                st.markdown('##### Top job titles')
+                                st.caption('Wordcloud below shows 20 most frequent job titles for a given period, technology area(s) and seniority level(s)')
 
-#                                 # List all job titles
-#                                 list_job_titles = df_fourth_sector.title.tolist()
+                                # List all job titles
+                                list_job_titles = df_fourth_sector.title.tolist()
 
-#                                 # Create a dictionary with a frequency per title counted
-#                                 dictionary_job_titles = {}
-#                                 for element in list_job_titles:
-#                                         if pd.isna(element) == True:
-#                                                 continue
+                                # Create a dictionary with a frequency per title counted
+                                dictionary_job_titles = {}
+                                for element in list_job_titles:
+                                        if pd.isna(element) == True:
+                                                continue
                                         
-#                                         elif element in dictionary_job_titles:
-#                                                 dictionary_job_titles[element] += 1
+                                        elif element in dictionary_job_titles:
+                                                dictionary_job_titles[element] += 1
                                         
-#                                         else:
-#                                                 dictionary_job_titles.update({element: 1})
+                                        else:
+                                                dictionary_job_titles.update({element: 1})
                                 
-#                                 # Sort values
-#                                 dictionary_job_titles_sorted = dict(sorted(dictionary_job_titles.items(), key=lambda item: item[1], reverse = True))
-#                                 # list_job_titles_sorted = sorted(dictionary_job_titles, key = dictionary_job_titles.get, reverse = True)
+                                # Sort values
+                                dictionary_job_titles_sorted = dict(sorted(dictionary_job_titles.items(), key=lambda item: item[1], reverse = True))
+                                # list_job_titles_sorted = sorted(dictionary_job_titles, key = dictionary_job_titles.get, reverse = True)
 
-#                                 # Create wordcloud object
-#                                 wordcloud = WordCloud(width = 1600, height = 800,
-#                                                 background_color ='black',
-#                                                 colormap = 'Blues',
-#                                                 max_words = 20,
-#                                                 min_font_size = 10).generate_from_frequencies(dictionary_job_titles_sorted)
+                                # Create wordcloud object
+                                wordcloud = WordCloud(width = 1600, height = 800,
+                                                background_color ='black',
+                                                colormap = 'Blues',
+                                                max_words = 20,
+                                                min_font_size = 10).generate_from_frequencies(dictionary_job_titles_sorted)
                                 
-#                                 # Plot the WordCloud image                      
-#                                 fig, ax = plt.subplots(figsize = (20, 10), facecolor = 'k')
-#                                 ax.imshow(wordcloud)
-#                                 plt.axis("off")
-#                                 plt.tight_layout(pad = 0)
-#                                 st.pyplot(fig)                      
+                                # Plot the WordCloud image                      
+                                fig, ax = plt.subplots(figsize = (20, 10), facecolor = 'k')
+                                ax.imshow(wordcloud)
+                                plt.axis("off")
+                                plt.tight_layout(pad = 0)
+                                st.pyplot(fig)                      
 
-#         st.markdown('#')
+        st.markdown('#')
 
-#         # Fifth sector
-#         with st.container():
+        # Fifth sector
+        with st.container():
 
-#                 st.markdown('##### Raw data')
-#                 st.caption('Table below contains raw data for a given period')
+                st.markdown('##### Raw data')
+                st.caption('Table below contains raw data for a given period')
 
-#                 # Create and show raw data set filtered by data range
-#                 df_raw_data = df_main[(df_main.datestamp >= filter_date_range[0]) &
-#                                         (df_main.datestamp <= filter_date_range[1])
-#                                         ].reset_index()
+                # Create and show raw data set filtered by data range
+                df_raw_data = df_main[(df_main.datestamp >= filter_date_range[0]) &
+                                        (df_main.datestamp <= filter_date_range[1])
+                                        ].reset_index()
 
-#                 df_raw_data
+                df_raw_data
 
-#                 # Export csv button
-#                 df_raw_data_export = df_to_csv(df_raw_data)
+                # Export csv button
+                df_raw_data_export = df_to_csv(df_raw_data)
 
-#                 st.download_button(
-#                 label = 'Download table as csv',
-#                 data = df_raw_data_export,
-#                 file_name = 'df.csv',
-#                 mime = 'text/csv'
-#                 )
+                st.download_button(
+                label = 'Download table as csv',
+                data = df_raw_data_export,
+                file_name = 'df.csv',
+                mime = 'text/csv'
+                )
 
-# else:
-#         st.info('Choose date range')
+else:
+        st.info('Choose date range')
 
 
 
