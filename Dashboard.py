@@ -386,133 +386,133 @@ if len(filter_date_range) == 2:
 
         st.markdown('###')
 
-        ## Fourth sector
-        with st.container():
+        # ## Fourth sector
+        # with st.container():
 
-                ## Sector filters
-                # Create technology area filter
-                list_technology_area = df_main['technology_area'].drop_duplicates().to_list()
-                list_technology_area.sort()
-                list_technology_area = ['all'] + list_technology_area
-                filter_technology_area = st.selectbox('Technology area:', 
-                                                list_technology_area,
-                                                index = list_technology_area.index('all'),
-                                                key = 8)
+        #         ## Sector filters
+        #         # Create technology area filter
+        #         list_technology_area = df_main['technology_area'].drop_duplicates().to_list()
+        #         list_technology_area.sort()
+        #         list_technology_area = ['all'] + list_technology_area
+        #         filter_technology_area = st.selectbox('Technology area:', 
+        #                                         list_technology_area,
+        #                                         index = list_technology_area.index('all'),
+        #                                         key = 8)
 
-                # Create seniority level filter
-                list_seniority_level = df_main['experience_level'].drop_duplicates().to_list()
-                list_seniority_level.sort()
-                list_seniority_level = ['all'] + list_seniority_level
-                filter_seniority_level = st.selectbox('Seniority level:', 
-                                                list_seniority_level,
-                                                index = list_seniority_level.index('all'),
-                                                key = 9)
+        #         # Create seniority level filter
+        #         list_seniority_level = df_main['experience_level'].drop_duplicates().to_list()
+        #         list_seniority_level.sort()
+        #         list_seniority_level = ['all'] + list_seniority_level
+        #         filter_seniority_level = st.selectbox('Seniority level:', 
+        #                                         list_seniority_level,
+        #                                         index = list_seniority_level.index('all'),
+        #                                         key = 9)
 
-                # Create filtered df
-                if filter_technology_area == 'all' and filter_seniority_level == 'all':
-                        df_fourth_sector = df_main[(df_main.datestamp >= filter_date_range[0]) &
-                                                (df_main.datestamp <= filter_date_range[1]) 
-                                                ].reset_index()
-                elif filter_technology_area != 'all' and filter_seniority_level != 'all':
-                        df_fourth_sector = df_main[(df_main.datestamp >= filter_date_range[0]) &
-                                                (df_main.datestamp <= filter_date_range[1]) &
-                                                (df_main.technology_area == filter_technology_area) &
-                                                (df_main.experience_level == filter_seniority_level)
-                                                ].reset_index()
-                elif filter_technology_area == 'all' and filter_seniority_level != 'all':
-                        df_fourth_sector = df_main[(df_main.datestamp >= filter_date_range[0]) &
-                                                (df_main.datestamp <= filter_date_range[1]) &
-                                                (df_main.experience_level == filter_seniority_level)
-                                                ].reset_index()
-                elif filter_technology_area != 'all' and filter_seniority_level == 'all':
-                        df_fourth_sector = df_main[(df_main.datestamp >= filter_date_range[0]) &
-                                                (df_main.datestamp <= filter_date_range[1]) &
-                                                (df_main.technology_area == filter_technology_area)
-                                                ].reset_index()
+        #         # Create filtered df
+        #         if filter_technology_area == 'all' and filter_seniority_level == 'all':
+        #                 df_fourth_sector = df_main[(df_main.datestamp >= filter_date_range[0]) &
+        #                                         (df_main.datestamp <= filter_date_range[1]) 
+        #                                         ].reset_index()
+        #         elif filter_technology_area != 'all' and filter_seniority_level != 'all':
+        #                 df_fourth_sector = df_main[(df_main.datestamp >= filter_date_range[0]) &
+        #                                         (df_main.datestamp <= filter_date_range[1]) &
+        #                                         (df_main.technology_area == filter_technology_area) &
+        #                                         (df_main.experience_level == filter_seniority_level)
+        #                                         ].reset_index()
+        #         elif filter_technology_area == 'all' and filter_seniority_level != 'all':
+        #                 df_fourth_sector = df_main[(df_main.datestamp >= filter_date_range[0]) &
+        #                                         (df_main.datestamp <= filter_date_range[1]) &
+        #                                         (df_main.experience_level == filter_seniority_level)
+        #                                         ].reset_index()
+        #         elif filter_technology_area != 'all' and filter_seniority_level == 'all':
+        #                 df_fourth_sector = df_main[(df_main.datestamp >= filter_date_range[0]) &
+        #                                         (df_main.datestamp <= filter_date_range[1]) &
+        #                                         (df_main.technology_area == filter_technology_area)
+        #                                         ].reset_index()
 
-                st.markdown('###')
+        #         st.markdown('###')
 
-                col1, col2 = st.columns(2)
+        #         col1, col2 = st.columns(2)
                 
-                with col1:
-                        ## Create a wordcloud for most frequent skills
-                        with st.container():
+        #         with col1:
+        #                 ## Create a wordcloud for most frequent skills
+        #                 with st.container():
 
-                                st.markdown('##### Top technologies')
-                                st.caption('Wordcloud below shows 20 most frequent technologies for a given period, technology area(s) and seniority level(s)')
+        #                         st.markdown('##### Top technologies')
+        #                         st.caption('Wordcloud below shows 20 most frequent technologies for a given period, technology area(s) and seniority level(s)')
 
-                                # List all skills
-                                list_skills = df_fourth_sector.skills_0_name.tolist() + df_fourth_sector.skills_1_name.tolist() + df_fourth_sector.skills_2_name.tolist()
+        #                         # List all skills
+        #                         list_skills = df_fourth_sector.skills_0_name.tolist() + df_fourth_sector.skills_1_name.tolist() + df_fourth_sector.skills_2_name.tolist()
 
-                                # Create a dictionary with a frequency per skill counted
-                                dictionary_skills = {}
-                                for element in list_skills:
-                                        if pd.isna(element) == True:
-                                                continue
+        #                         # Create a dictionary with a frequency per skill counted
+        #                         dictionary_skills = {}
+        #                         for element in list_skills:
+        #                                 if pd.isna(element) == True:
+        #                                         continue
                                         
-                                        elif element in dictionary_skills:
-                                                dictionary_skills[element] += 1
+        #                                 elif element in dictionary_skills:
+        #                                         dictionary_skills[element] += 1
                                         
-                                        else:
-                                                dictionary_skills.update({element: 1})
+        #                                 else:
+        #                                         dictionary_skills.update({element: 1})
                                 
-                                # Sort values
-                                dictionary_skills_sorted = dict(sorted(dictionary_skills.items(), key=lambda item: item[1], reverse = True))
-                                # list_skills_sorted = sorted(dictionary_skills, key = dictionary_skills.get, reverse = True)
+        #                         # Sort values
+        #                         dictionary_skills_sorted = dict(sorted(dictionary_skills.items(), key=lambda item: item[1], reverse = True))
+        #                         # list_skills_sorted = sorted(dictionary_skills, key = dictionary_skills.get, reverse = True)
 
-                                # Create wordcloud object
-                                wordcloud = WordCloud(width = 1600, height = 800,
-                                                background_color ='black',
-                                                colormap = 'Blues',
-                                                max_words = 20,
-                                                min_font_size = 10).generate_from_frequencies(dictionary_skills_sorted)
+        #                         # Create wordcloud object
+        #                         wordcloud = WordCloud(width = 1600, height = 800,
+        #                                         background_color ='black',
+        #                                         colormap = 'Blues',
+        #                                         max_words = 20,
+        #                                         min_font_size = 10).generate_from_frequencies(dictionary_skills_sorted)
                                 
-                                # Plot the WordCloud image                      
-                                fig, ax = plt.subplots(figsize = (20, 10), facecolor = 'k')
-                                ax.imshow(wordcloud)
-                                plt.axis("off")
-                                plt.tight_layout(pad = 0)
-                                st.pyplot(fig)
+        #                         # Plot the WordCloud image                      
+        #                         fig, ax = plt.subplots(figsize = (20, 10), facecolor = 'k')
+        #                         ax.imshow(wordcloud)
+        #                         plt.axis("off")
+        #                         plt.tight_layout(pad = 0)
+        #                         st.pyplot(fig)
                                 
-                with col2:
-                        ## Create a wordcloud for most frequent job titles
-                        with st.container():
+        #         with col2:
+        #                 ## Create a wordcloud for most frequent job titles
+        #                 with st.container():
 
-                                st.markdown('##### Top job titles')
-                                st.caption('Wordcloud below shows 20 most frequent job titles for a given period, technology area(s) and seniority level(s)')
+        #                         st.markdown('##### Top job titles')
+        #                         st.caption('Wordcloud below shows 20 most frequent job titles for a given period, technology area(s) and seniority level(s)')
 
-                                # List all job titles
-                                list_job_titles = df_fourth_sector.title.tolist()
+        #                         # List all job titles
+        #                         list_job_titles = df_fourth_sector.title.tolist()
 
-                                # Create a dictionary with a frequency per title counted
-                                dictionary_job_titles = {}
-                                for element in list_job_titles:
-                                        if pd.isna(element) == True:
-                                                continue
+        #                         # Create a dictionary with a frequency per title counted
+        #                         dictionary_job_titles = {}
+        #                         for element in list_job_titles:
+        #                                 if pd.isna(element) == True:
+        #                                         continue
                                         
-                                        elif element in dictionary_job_titles:
-                                                dictionary_job_titles[element] += 1
+        #                                 elif element in dictionary_job_titles:
+        #                                         dictionary_job_titles[element] += 1
                                         
-                                        else:
-                                                dictionary_job_titles.update({element: 1})
+        #                                 else:
+        #                                         dictionary_job_titles.update({element: 1})
                                 
-                                # Sort values
-                                dictionary_job_titles_sorted = dict(sorted(dictionary_job_titles.items(), key=lambda item: item[1], reverse = True))
-                                # list_job_titles_sorted = sorted(dictionary_job_titles, key = dictionary_job_titles.get, reverse = True)
+        #                         # Sort values
+        #                         dictionary_job_titles_sorted = dict(sorted(dictionary_job_titles.items(), key=lambda item: item[1], reverse = True))
+        #                         # list_job_titles_sorted = sorted(dictionary_job_titles, key = dictionary_job_titles.get, reverse = True)
 
-                                # Create wordcloud object
-                                wordcloud = WordCloud(width = 1600, height = 800,
-                                                background_color ='black',
-                                                colormap = 'Blues',
-                                                max_words = 20,
-                                                min_font_size = 10).generate_from_frequencies(dictionary_job_titles_sorted)
+        #                         # Create wordcloud object
+        #                         wordcloud = WordCloud(width = 1600, height = 800,
+        #                                         background_color ='black',
+        #                                         colormap = 'Blues',
+        #                                         max_words = 20,
+        #                                         min_font_size = 10).generate_from_frequencies(dictionary_job_titles_sorted)
                                 
-                                # Plot the WordCloud image                      
-                                fig, ax = plt.subplots(figsize = (20, 10), facecolor = 'k')
-                                ax.imshow(wordcloud)
-                                plt.axis("off")
-                                plt.tight_layout(pad = 0)
-                                st.pyplot(fig)                      
+        #                         # Plot the WordCloud image                      
+        #                         fig, ax = plt.subplots(figsize = (20, 10), facecolor = 'k')
+        #                         ax.imshow(wordcloud)
+        #                         plt.axis("off")
+        #                         plt.tight_layout(pad = 0)
+        #                         st.pyplot(fig)                      
 
         st.markdown('#')
 
