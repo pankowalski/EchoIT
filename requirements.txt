@@ -1,7 +1,6 @@
 # mysql-connector-python
 sqlalchemy
-configparser
-sqlalchemy
+# configparser
 pandas
 streamlit
 plotly
