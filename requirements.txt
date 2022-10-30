@@ -1,9 +1,6 @@
+sqlalchemy
 pandas
-numpy
-pymongo
 streamlit
-flatten_json
-datetime
 plotly
-matplotlib
 wordcloud
+matplotlib
