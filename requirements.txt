@@ -1,5 +1,5 @@
 # mysql-connector-python
-mysqlclient
+python-mysqldb
 sqlalchemy
 configparser
 sqlalchemy
