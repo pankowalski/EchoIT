@@ -1,4 +1,5 @@
-from sqlalchemy import create_engine
+# from sqlalchemy import create_engine
+import mysql.connector
 import pandas as pd
 import streamlit as st
 import plotly.express as px
@@ -9,20 +10,16 @@ import matplotlib.pyplot as plt
 class dashboard:
     @st.experimental_memo
     def __init__(_self):
-        _self.user = st.secrets['user']
-        _self.password = st.secrets['password']
-        _self.host = st.secrets['host']
-        _self.port = st.secrets['port']
+        # _self.user = st.secrets['user']
+        # _self.password = st.secrets['password']
+        # _self.host = st.secrets['host']
+        # _self.port = st.secrets['port']
         _self.db_name = st.secrets['db_name']        
         _self.final_table_name = st.secrets['final_table']
         _self.datestamp_column_name = 'datestamp'
-        _self.engine = create_engine(f'mysql+mysqldb://{_self.user}:{_self.password}@{_self.host}:{_self.port}/{_self.db_name}')
-        _self.mysql_connection = _self.engine.connect()
-
-    # Close mysql connection
-    def close_db_connections(_self):
-        _self.mysql_connection.close()
-        _self.engine.dispose()
+        # _self.engine = create_engine(f'mysql+mysqldb://{_self.user}:{_self.password}@{_self.host}:{_self.port}/{_self.db_name}')
+        # _self.mysql_connection = _self.engine.connect()
+        _self.mysql_connection = mysql.connector.connect(**st.secrets['mysql'])
     
     # Get date range for dataset
     @st.experimental_memo
