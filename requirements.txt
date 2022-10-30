@@ -1,4 +1,6 @@
-mysql-connector-python
+# mysql-connector-python
+mysqlclient
+sqlalchemy
 configparser
 sqlalchemy
 pandas
