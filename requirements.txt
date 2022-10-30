@@ -1,3 +1,4 @@
+mysqldb
 sqlalchemy
 pandas
 streamlit
