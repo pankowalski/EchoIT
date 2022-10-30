@@ -1,5 +1,4 @@
 # mysql-connector-python
-python-mysqldb
 sqlalchemy
 configparser
 sqlalchemy
