@@ -1,4 +1,5 @@
 mysql-connector-python
+configparser
 sqlalchemy
 pandas
 streamlit
