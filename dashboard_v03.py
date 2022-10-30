@@ -1,5 +1,4 @@
-from sqlalchemy import create_engine
-# import mysql.connector
+import mysql.connector
 import pandas as pd
 import streamlit as st
 import plotly.express as px
@@ -17,34 +16,40 @@ class dashboard:
         _self.db_name = st.secrets['db_name']        
         _self.final_table_name = st.secrets['final_table']
         _self.datestamp_column_name = 'datestamp'
-        _self.engine = create_engine(f'mysql+mysqldb://{_self.user}:{_self.password}@{_self.host}:{_self.port}/{_self.db_name}')
-        _self.mysql_connection = _self.engine.connect()
-        # _self.mysql_connection = mysql.connector.connect(**st.secrets['mysql'])
+        _self.mysql_connection = mysql.connector.connect(user = _self.user,
+                                                         password = _self.password,
+                                                         host = _self.host,
+                                                         port = _self.port,
+                                                         database = _self.db_name)
     
     # Get date range for dataset
     @st.experimental_memo
     def get_date_range(_self, 
                        range = 90):
-        result = _self.mysql_connection.execute(f"""
-                                            SELECT DATE_ADD(MAX({_self.datestamp_column_name}), INTERVAL -{str(range)} DAY) AS min_date,
-                                                   MAX({_self.datestamp_column_name}) AS max_date
-                                            FROM {_self.db_name}.{_self.final_table_name}
-                                            """)
-        date_range = result.fetchall()
-        date_range = date_range[0].values()
+        with _self.mysql_connection.cursor() as cur:
+            cur.execute(f"""
+                        SELECT DATE_ADD(MAX({_self.datestamp_column_name}), INTERVAL -{str(range)} DAY) AS min_date,
+                                MAX({_self.datestamp_column_name}) AS max_date
+                        FROM {_self.db_name}.{_self.final_table_name}
+                        """)
+            result = cur.fetchall()
+
+        date_range = [result[0][0], result[0][1]]
 
         return date_range
 
     # Get max date range for dataset
     @st.experimental_memo
     def get_max_date_range(_self):
-        result = _self.mysql_connection.execute(f"""
-                                            SELECT MIN({_self.datestamp_column_name}) AS min_date,
-                                                   MAX({_self.datestamp_column_name}) AS max_date
-                                            FROM {_self.db_name}.{_self.final_table_name}
-                                            """)
-        date_range = result.fetchall()
-        date_range = date_range[0].values()
+        with _self.mysql_connection.cursor() as cur:
+            cur.execute(f"""
+                        SELECT MIN({_self.datestamp_column_name}) AS min_date,
+                                MAX({_self.datestamp_column_name}) AS max_date
+                        FROM {_self.db_name}.{_self.final_table_name}
+                        """)
+            result = cur.fetchall()
+
+        date_range = [result[0][0], result[0][1]]
 
         return date_range
 
