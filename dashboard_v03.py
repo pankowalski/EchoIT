@@ -14,9 +14,9 @@ class dashboard:
         _self.password = st.secrets['password']
         _self.host = st.secrets['host']
         _self.port = st.secrets['port']
-        # _self.db_name = st.secrets['db_name']        
-        # _self.final_table_name = st.secrets['final_table']
-        # _self.datestamp_column_name = 'datestamp'
+        _self.db_name = st.secrets['db_name']        
+        _self.final_table_name = st.secrets['final_table']
+        _self.datestamp_column_name = 'datestamp'
         _self.engine = create_engine(f'mysql+mysqldb://{_self.user}:{_self.password}@{_self.host}:{_self.port}/{_self.db_name}')
         _self.mysql_connection = _self.engine.connect()
         # _self.mysql_connection = mysql.connector.connect(**st.secrets['mysql'])
