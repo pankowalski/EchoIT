@@ -7,7 +7,7 @@ from wordcloud import WordCloud, STOPWORDS
 import matplotlib.pyplot as plt
 
 class dashboard:
-    @st.experimental_memo
+    @st.experimental_memo(ttl = 3600)
     def __init__(_self):
         _self.user = st.secrets['user']
         _self.password = st.secrets['password']
