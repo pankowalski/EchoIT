@@ -23,7 +23,7 @@ class dashboard:
                                                          database = _self.db_name)
     
     # Get date range for dataset
-    @st.experimental_memo
+    @st.experimental_memo(ttl = 3600)
     def get_date_range(_self, 
                        range = 90):
         with _self.mysql_connection.cursor() as cur:
@@ -39,7 +39,7 @@ class dashboard:
         return date_range
 
     # Get max date range for dataset
-    @st.experimental_memo
+    @st.experimental_memo(ttl = 3600)
     def get_max_date_range(_self):
         with _self.mysql_connection.cursor() as cur:
             cur.execute(f"""
