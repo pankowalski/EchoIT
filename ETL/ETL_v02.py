@@ -10,7 +10,7 @@ from flatten_json import flatten
 class ETL:
     def __init__(self):
         # Set up variables
-        self.url = 'https://justjoin.it/api/offers'
+        self.url = 'URL_API'
         self.yesterday_date = date.today() - timedelta(days = 1)
         
         self.host = 'HOST'
