@@ -8,29 +8,29 @@ import numpy as np
 from flatten_json import flatten
 
 class ETL:
-    def __init__(self):
+    def __init__(self, url, host, port, db_name, collection_name, mysql_user, mysql_password, mysql_port, staging_table_name, final_table_name):
         # Set up variables
-        self.url = 'URL_API'
+        self.url = url
         self.yesterday_date = date.today() - timedelta(days = 1)
         
-        self.host = 'HOST'
-        self.port = 'MONGO_PORT'
-        self.db_name = 'DB_NAME'
-        self.collection_name = 'MONGO_COLLECTION_NAME'
+        self.host = host
+        self.port = port
+        self.db_name = db_name
+        self.collection_name = collection_name
 
         self.client = MongoClient(host = self.host, port = self.port)
         self.db = self.client[self.db_name]
         self.collection = self.db[self.collection_name]
 
-        self.user = 'MYSQL_USER'
-        self.password = 'MYSQL_PASSWORD'
-        self.mysql_port = 'MYSQL_PORT'
+        self.user = mysql_user
+        self.password = mysql_password
+        self.mysql_port = mysql_port
 
         self.engine = create_engine(f'mysql+mysqldb://{self.user}:{self.password}@{self.host}:{self.mysql_port}/{self.db_name}')
         
         self.mysql_connection = self.engine.connect()
-        self.staging_table_name = 'PASTE_TABLE_NAME'
-        self.final_table_name = 'PASTE_TABLE_NAME'
+        self.staging_table_name = staging_table_name
+        self.final_table_name = final_table_name
     
     def close_db_connections(self):
         # Close mongo connection
